@@ -15,6 +15,9 @@ public class Item : MonoBehaviour,IItem
     public float Weight => _weight;
     public ItemType Type => _type;
     public GameObject GameObject=>gameObject;
+
+    public bool IsSelected { get ; set ; }
+
     private bool _isInInventory;
     private BackPack _backPack;
     [SerializeField] private ItemConfigSO _config;
@@ -33,34 +36,8 @@ public class Item : MonoBehaviour,IItem
 
         Debug.Log($"Item '{_name}' initialized with ID: {_id}");
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!_isInInventory)
-        {
-
-              BackPack backPack = other.GetComponent<BackPack>();
-            if (backPack != null)
-            {
-            _backPack = backPack;
-            _backPack.ItemAdded(this);  
-            _isInInventory = true;
-            }
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (_isInInventory)
-        {
-
-        InventoryCell inventoryCell = other.GetComponent<InventoryCell>();
-        if (inventoryCell != null)
-        {
-            _backPack.ItemRemoved(this);
-            _backPack = null;
-            _isInInventory= false;
-        }    
-        }
-    }
+   
+   
     public void SetRigidbodyState(bool isEnabled)
     {
         if (_rigidbody != null)

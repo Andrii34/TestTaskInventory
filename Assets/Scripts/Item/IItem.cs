@@ -10,6 +10,7 @@ public interface IItem
     float Weight { get; }
     ItemType Type { get; }
     GameObject GameObject { get; }
+    public bool IsSelected { get; set; }
     public void SetRigidbodyState(bool isEnabled);
 
 }
